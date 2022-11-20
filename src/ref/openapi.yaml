@@ -1,0 +1,73 @@
+openapi: 3
+info:
+  title: Spectator Test API
+  version: '1.0'
+servers:
+  - url: 'http://localhost'
+paths:
+  /api/status:
+    get:
+      description: Get
+      responses:
+        '500':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/res_api_status'
+  /api/check:
+    post:
+      operationId: post-api-check
+      description: Post
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/res_api_check'
+    parameters: []
+components:
+  schemas:
+    res_api_check:
+      title: res_api_check
+      type: object
+      properties:
+        date:
+          type: object
+          required:
+            - year
+            - month
+            - day
+          properties:
+            year:
+              type: integer
+            month:
+              type: integer
+            day:
+              type: integer
+            timezone:
+              type: string
+        title:
+          type: string
+        level:
+          type: string
+          enum:
+            - high
+            - normal
+            - low
+        isLogin:
+          type: boolean
+      required:
+        - date
+        - title
+        - level
+        - isLogin
+    res_api_status:
+      title: res_api_status
+      type: object
+      properties:
+        status:
+          type: string
+      required:
+        - status
